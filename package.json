@@ -1,7 +1,7 @@
 {
   "name": "Demo",
   "version": "1.0.0",
-  "description": "npm install: express ejs, socket.io, socket.io-stream, peerjs",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
