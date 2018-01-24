@@ -12,6 +12,8 @@ app.get("/", function (req, res) {
     res.render("test");
 });
 
+return;
+
 // var PeerServer = require("./peer-server");
 // var peerServer = new PeerServer(server);
 

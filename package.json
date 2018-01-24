@@ -9,6 +9,10 @@
   "author": "chimchesau",
   "license": "ISC",
   "dependencies": {
-    "peer": "^0.2.8"
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "peer": "^0.2.8",
+    "socket.io": "^2.0.4",
+    "socket.io-stream": "^0.9.1"
   }
 }
