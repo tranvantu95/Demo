@@ -9,7 +9,7 @@ server.listen(process.env.PORT || 8080);
 
 app.get("/", function (req, res) {
     // res.render("trangchu");
-    res.render("webRTC");
+    res.render("test");
 });
 
 // var PeerServer = require("./peer-server");
