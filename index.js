@@ -7,10 +7,10 @@ app.set("views", "./views");
 var server = require("http").Server(app);
 server.listen(process.env.PORT || 8080);
 
-app.get("/", function (req, res) {
-    // res.render("trangchu");
-    res.render("webRTC");
-});
+// app.get("/", function (req, res) {
+//     // res.render("trangchu");
+//     res.render("webRTC");
+// });
 
 // var PeerServer = require("./peer-server");
 // var peerServer = new PeerServer(server);
