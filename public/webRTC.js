@@ -1,7 +1,7 @@
 
 let local = false;
 
-let socket = io(local ? "http://localhost:8080" : "https://nodejswebrtc.herokuapp.com/");
+let socket = io(local ? "http://localhost:8080" : "https://nodejswebrtc.herokuapp.com");
 // var socketStream = ss.createStream();
 
 function openStream() {
