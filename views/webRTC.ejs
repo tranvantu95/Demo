@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>Demo Nodejs IO</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="socket.io.js"></script>
+    <script src="socket.io-stream.js"></script>
+    <script src="peer-client.js"></script>
+</head>
+
+<body>
+
+<h3 id="peer_id"></h3>
+
+<video id="localStream" width="300" controls></video>
+<br/> <br/>
+<video id="remoteStream" width="300" controls></video>
+<br/> <br/>
+
+<input type="text" id="remoteId" placeholder="Remote Id"/>
+<button id="btnCall">Call</button>
+
+</body>
+
+<script src="webRTC.js"></script>
+
+</html>

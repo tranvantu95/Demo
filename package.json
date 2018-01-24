@@ -1,0 +1,14 @@
+{
+  "name": "Demo",
+  "version": "1.0.0",
+  "description": "npm install: express ejs, socket.io, socket.io-stream, peerjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "chimchesau",
+  "license": "ISC",
+  "dependencies": {
+    "peer": "^0.2.8"
+  }
+}

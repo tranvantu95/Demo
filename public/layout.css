@@ -1,0 +1,15 @@
+body{background-color: aliceblue}
+#wrapper{width: 600px; margin: auto; background-color: antiquewhite}
+#txtUsername{background-color: transparent; border: solid 1px black}
+
+#chatForm{margin-top: 10px}
+#left, #right {min-height: 300px}
+#left{width: 30%; float: left; background-color: aqua}
+#right{width: 70%; float: right; background-color: aquamarine}
+
+#boxTitle{border: solid 1px black; padding: 5px; text-align: center; font-weight: bold}
+#boxContent{padding: 5px; text-align: center}
+
+#sayHi{text-align: right}
+
+#listMessages{height: 200px; background-color: antiquewhite; margin-bottom: 10px}
