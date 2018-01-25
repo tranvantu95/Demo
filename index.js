@@ -5,7 +5,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 var server = require("http").Server(app);
-server.listen(process.env.PORT || 8080);
+server.listen(process.env.PORT || 2310);
 
 app.get("/", function (req, res) {
     // res.render("trangchu");
@@ -15,8 +15,11 @@ app.get("/", function (req, res) {
 // var PeerServer = require("./peer-server");
 // var peerServer = new PeerServer(server);
 
+var fs = require('fs');
+
 var io = require("socket.io")(server);
 var ss = require('socket.io-stream');
+ss.forceBase64 = true;
 
 var nsp = io.of('/my-namespace');
 
@@ -27,7 +30,7 @@ nsp.on('connection', function(socket){
 var users = [];
 
 io.on("connection", function (socket) {
-    console.log("connection " + socket.id);
+    console.log("connection", socket.id);
     // console.log(socket.adapter.rooms); // get all rooms
     // console.log(io.sockets.adapter.rooms); // get all rooms
 
@@ -35,20 +38,38 @@ io.on("connection", function (socket) {
     socket.emit("connection");
 
     socket.on("peer-call-peer", function (data) {
-        console.log(socket.id + " call " + data.peerId);
+        console.log(socket.id, "call", data.peerId);
         io.to(data.peerId).emit("call", {peerId: socket.id, desc: data.desc});
     });
 
     socket.on("peer-answer-peer", function (data) {
-        console.log(socket.id + " answer " + data.peerId);
+        console.log(socket.id, "answer", data.peerId);
         io.to(data.peerId).emit("answer", {peerId: socket.id, desc: data.desc});
     });
 
     socket.on("peer-send-candidate-to-peer", function (data) {
-        console.log(socket.id + " send-candidate " + data.peerId);
+        console.log(socket.id, "send-candidate", data.peerId);
         io.to(data.peerId).emit("candidate", {peerId: socket.id, candidate: data.candidate});
     });
     /*------------------------------WebRTC---------------------------------------------------*/
+
+    socket.on("stream", buffer => {
+        console.log("stream", buffer);
+        socket.emit("stream", buffer);
+
+        let ws = fs.createWriteStream('video.webm');
+        ws.write(buffer);
+        ws.end();
+    });
+
+    // ss(socket).on("stream", stream => {
+    //     console.log("stream " + stream);
+    //     stream.pipe(fs.createWriteStream('video.webm'));
+    //
+    //     let _stream = ss.createStream();
+    //     socket.emit("stream", _stream);
+    //     stream.pipe(_stream);
+    // });
 
     // var rooms = [];
     // for(var roomName in io.sockets.adapter.rooms) rooms.push(roomName);
@@ -59,7 +80,7 @@ io.on("connection", function (socket) {
 
 
     socket.on("disconnect", function () {
-        console.log("disconnect " + socket.id);
+        console.log("disconnect", socket.id);
     });
 
     socket.on("Client-send-data", function (data) {
