@@ -5,7 +5,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 var server = require("http").Server(app);
-server.listen(process.env.PORT || 2310);
+server.listen(process.env.PORT || 8080);
 
 app.get("/", function (req, res) {
     // res.render("trangchu");
@@ -55,21 +55,26 @@ io.on("connection", function (socket) {
 
     socket.on("stream", buffer => {
         console.log("stream", buffer);
+
+        // send buffer
         socket.emit("stream", buffer);
 
-        let ws = fs.createWriteStream('video.webm');
-        ws.write(buffer);
-        ws.end();
+        // save buffer
+        // let ws = fs.createWriteStream('video.webm');
+        // ws.write(buffer);
+        // ws.end();
     });
 
-    // ss(socket).on("stream", stream => {
-    //     console.log("stream " + stream);
-    //     stream.pipe(fs.createWriteStream('video.webm'));
-    //
-    //     let _stream = ss.createStream();
-    //     socket.emit("stream", _stream);
-    //     stream.pipe(_stream);
-    // });
+    ss(socket).on("stream", stream => {
+        console.log("stream " + stream);
+
+        // save file
+        stream.pipe(fs.createWriteStream('file'));
+
+        // let _stream = ss.createStream();
+        // socket.emit("stream", _stream);
+        // stream.pipe(_stream);
+    });
 
     // var rooms = [];
     // for(var roomName in io.sockets.adapter.rooms) rooms.push(roomName);

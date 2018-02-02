@@ -10,16 +10,22 @@
 
 <body>
 
-<h3 id="peer_id"></h3>
+<h3>Local Stream</h3>
+<video id="localStream" width="320" height="240" controls ></video>
+<video id="video2" width="320" height="240" controls ></video>
+<canvas id="canvas" width="320" height="240"></canvas>
 
-<video id="localStream" width="300" controls></video>
-<br/> <br/>
-<video id="remoteStream" width="300" controls></video>
-<br/> <br/>
+<h3>Remote Stream</h3>
+<video id="remoteStream" width="320" height="240" controls ></video> <!--recorder-->
+<canvas id="remoteCanvas" width="320" height="240"></canvas> <!--recorder-->
+<video id="remoteStream2" width="320" height="240" controls ></video> <!--webRTC-->
+
+<h3 id="peer_id"></h3>
 
 <input type="text" id="remoteId" placeholder="Remote Id"/>
 <button id="btnCall">Call</button>
 
+<h3>Upload File</h3>
 <input id="file" type="file" />
 
 </body>
