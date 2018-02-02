@@ -1,5 +1,5 @@
 
-let local = true;
+let local = false;
 
 let socket = io(local ? "http://localhost:8080" : "https://nodejswebrtc.herokuapp.com");
 
