@@ -6,6 +6,9 @@
     <script src="socket.io.js"></script>
     <script src="socket.io-stream.js"></script>
     <script src="peer-client.js"></script>
+
+    <script src="MultiStreamsMixer.js"></script>
+    <!--<script src="https://www.webrtc-experiment.com/MultiStreamsMixer.js"></script>-->
 </head>
 
 <body>
@@ -14,6 +17,19 @@
 <video id="localStream" width="320" height="240" controls ></video>
 <video id="video2" width="320" height="240" controls ></video>
 <canvas id="canvas" width="320" height="240"></canvas>
+
+<br/>
+<audio id="music" width="320" autoplay muted controls>
+    <!--<source src="horse.ogg" type="audio/ogg">-->
+    <source src="BuonCuaAnh.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<audio id="music2" width="320" autoplay muted controls>
+    <!--<source src="horse.ogg" type="audio/ogg">-->
+    <source src="LacTroi.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<audio id="music3" width="320" controls></audio>
 
 <h3>Remote Stream</h3>
 <video id="remoteStream" width="320" height="240" controls ></video> <!--recorder-->

@@ -66,26 +66,31 @@ var chunks;
 
 function recorder(stream, duration) {
     let mediaRecorder = new MediaRecorder(stream, {mimeType: type});
+    // let mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.onstart = e => {
         chunks = [];
     };
     mediaRecorder.ondataavailable = e => {
         chunks.push(e.data);
+
+        // let blob = new Blob([e.data], { type:type });
+        // socket.emit('stream', e.data);
     };
     mediaRecorder.onstop = e => {
         let blob = new Blob(this.chunks, { type:type });
         socket.emit('stream', blob);
         // play();
 
-        // mediaRecorder.start();
-        // setTimeout(function() {
-        //     mediaRecorder.stop()
-        // }, 1000);
+        mediaRecorder.start();
+        setTimeout(function() {
+            mediaRecorder.stop()
+        }, 1000);
 
-        recorder(stream, 500);
+        // recorder(stream, 3000);
     };
 
     mediaRecorder.start();
+
     setTimeout(function() {
         mediaRecorder.stop()
     }, duration || 1000);
@@ -109,7 +114,7 @@ socket.on("stream", arrayBuffer => {
 
     while (arrayBufferList.length > 3) arrayBufferList.shift();
 
-    if(remoteStream.paused) {
+    if(arrayBufferList.length === 3 && remoteStream.paused) {
         // remoteStream.play();
         play(arrayBufferList.shift());
     }
@@ -183,6 +188,7 @@ remoteStream.addEventListener('play', function() {
     })();
 }, 0);
 
+var stream = canvas.captureStream(30);
 
 openStream().then(stream => {
     video.srcObject = stream;
@@ -190,11 +196,36 @@ openStream().then(stream => {
 
     video2.srcObject = stream;
     video2.play();
-
-    recorder(this.stream);
 });
 
-var stream = canvas.captureStream(30);
+let music = document.getElementById('music');
+let music2 = document.getElementById('music2');
+
+var num = 0;
+var audioMixer;
+var mixer = () => {
+    num++;
+    if(num !== 2) return;
+    console.log("mixer", num);
+
+    // console.log(music.captureStream().getAudioTracks());
+    // console.log(music2.captureStream().getAudioTracks());
+
+    audioMixer = new MultiStreamsMixer([music.captureStream(), music2.captureStream()]);
+    // console.log(audioMixer.getMixedStream().getAudioTracks());
+    console.log(audioMixer.getMixedAudioStream().getAudioTracks());
+
+    document.getElementById('music3').src = URL.createObjectURL(audioMixer.getMixedStream());
+
+    // this.stream.addTrack(music.captureStream().getAudioTracks()[0]);
+    // this.stream.addTrack(audioMixer.getMixedStream().getAudioTracks()[0]);
+    this.stream.addTrack(audioMixer.getMixedAudioStream().getAudioTracks()[0]);
+
+    recorder(this.stream);
+};
+
+music.addEventListener('play', mixer, 0);
+music2.addEventListener('play', mixer, 0);
 
 /////////////////////////////////////////////////////// Upload file
 ss.forceBase64 = true;
